@@ -57,10 +57,12 @@ const moviesSlice = createSlice({
     builder.addCase(fetchMovies.fulfilled, (state, action) => {
       state.loading = Loading.Idle;
       state.data = action.payload.Search || [];
+      state.error = null;
       state.total = parseInt(action.payload.totalResults, 10);
     });
     builder.addCase(fetchMovies.rejected, (state, action) => {
       state.loading = Loading.Idle;
+      state.data = [];
       state.error = action.error;
     });
   },

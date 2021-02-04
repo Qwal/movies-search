@@ -22,13 +22,21 @@ const GridContainer = styled.div`
   }
 `;
 
+const NoResults = styled.div`
+  padding: 40px;
+  color: #ffffff;
+`;
+
 export const MoviesList = () => {
-  const { data, loading } = useSelector((state: RootState) => state.movies);
+  const { data, loading, error } = useSelector(
+    (state: RootState) => state.movies
+  );
 
   return (
     <>
       {loading === Loading.Pending && <LinearProgress />}
       <GridContainer>
+        {error?.message && <NoResults>No movies found</NoResults>}
         <GridList cellHeight={180} cols={4}>
           {data.map((movie: MovieData) => (
             <GridListTile key={`${movie.Title}_${movie.Year}`} cols={1}>
